@@ -1,28 +1,49 @@
 package album.rest.controller;
 
-import album.backend.UserRepository;
+import album.backend.PhotoDAO;
+import album.backend.UserDAO;
 import album.common.domain.Photo;
 import album.common.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
 public class UserControlller {
-    UserRepository userRepository = new UserRepository();
-    @GetMapping("/getAll")
-    public String get() {
-        return "Get all is working";
+
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private PhotoDAO photoDAO;
+
+    @GetMapping("/Users")
+    public String retrieveAllUsers() {
+        Iterable<User> all = userDAO.findAll();
+
+        StringBuilder sb = new StringBuilder();
+
+        all.forEach(p -> sb.append(p.getName() + "<br>"));
+
+        return sb.toString();
     }
 
-    @GetMapping("/get/{id}")
-    public String getUserById(@PathVariable Integer id) {
-        return String.valueOf(id);
+    @GetMapping("/Users/{id}")
+    public User retrieveUser(@PathVariable long id) throws Exception {
+        return null;
     }
 
-    @PostMapping("/save")
-    public String saveUser(@RequestBody User user){
-        userRepository.saveUser(user);
-        return "saved user " + user.toString();
+    @DeleteMapping("/Users/{id}")
+    public void deleteUser(@PathVariable long id) {
+
     }
 
+    @PostMapping("/Users/Photo/{photo}")
+    public ResponseEntity<Object> createUser(@RequestBody Photo photo) {
+        return null;
+    }
+
+    @PutMapping("/Users/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody User User, @PathVariable long id) {
+        return null;
+    }
 }

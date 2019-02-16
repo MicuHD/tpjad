@@ -1,25 +1,59 @@
 package album.common.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User implements Serializable {
+@Table(name="User")
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id",updatable = false,nullable = false)
-    Integer id;
+    @GeneratedValue
+    @Column(name="user_id",nullable=false)
+    private Long id;
+    @Column(name="name",nullable = false)
+    private String name;
+    @Column(name="passport",nullable = true)
+    private String passportNumber;
 
-    @Column(name = "email")
-    String email;
+    @Column
+    @OneToMany(mappedBy = "user1",cascade=CascadeType.ALL)
+    private List<Photo> photos;
 
-    @Column(name = "password")
-    String password;
+    public User() {
+        super();
+    }
 
-    @OneToMany
-    @JoinColumn(name="photo_fk")
+    public User(Long id, String name, String passportNumber) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.passportNumber = passportNumber;
+    }
+
+    public User(String name, String passportNumber) {
+        super();
+        this.name = name;
+        this.passportNumber = passportNumber;
+    }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
     public List<Photo> getPhotos() {
         return photos;
     }
@@ -28,79 +62,20 @@ public class User implements Serializable {
         this.photos = photos;
     }
 
-    List<Photo> photos = new ArrayList<>();
-
-    /**
-     sessionID - String
-     ID-ul unic al sesiunii curente
-     */
-    @Column(name = "sessionId")
-    String sessionID;
-
-    /**
-     * Constructor default
-     */
-    public User() {
-
-    }
-
-    public User(Integer id){
-        this.id = id;
-    }
-    /**
-     * Constructor cu parametrii
-     * @param email
-     * @param passwd
-     */
-    public User(String email, String passwd) {
-        this.email = email;
-        this.password = passwd;
-    }
-
-    ////////////////////////////getters and setters start///////////////////////////////
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String passwd) {
-        this.password = passwd;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
                 ", photos=" + photos +
-                ", sessionID='" + sessionID + '\'' +
                 '}';
     }
 
-    public String getSessionID() {
-        return sessionID;
+    public void addPhoto(Photo photo){
+//        System.out.print(photo.toString());
+        System.out.println(photo.getDescription() + " " + photo.getUser1().getId());
+        //photo.setUser1(this);
+        this.photos.add(photo);
     }
-
-    public void setSessionID(String sessionID) {
-        this.sessionID = sessionID;
-    }
-
-    ////////////////////////////getters and setters end///////////////////////////////
 }
-

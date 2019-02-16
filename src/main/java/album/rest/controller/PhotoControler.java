@@ -1,16 +1,15 @@
 package album.rest.controller;
 
-import album.backend.PhotoRepository;
-import album.backend.UserRepository;
+import album.backend.PhotoDAO;
 import album.common.domain.Photo;
-import album.common.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/photos")
 public class PhotoControler {
-    private PhotoRepository photoRepository = new PhotoRepository();
-    private UserRepository userRepository = new UserRepository();
+    @Autowired
+    PhotoDAO photoDAO;
 
     @GetMapping("/getAll")
     public String get() {
@@ -29,7 +28,7 @@ public class PhotoControler {
 //        User user = userRepository.findById(image.getUser().getId());
   //      System.out.println(user.toString());
     //    if(user != null)
-            photoRepository.savePhoto(image);
+            photoDAO.save(image);
       //  else
        //     throw new Exception("User id doesn't exist");
     }

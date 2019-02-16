@@ -1,50 +1,41 @@
 package album.common.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-public class Photo implements Serializable {
+@Table(name = "Photo")
+public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",updatable = false,nullable = false)
-    private Integer id;
+    @Column(name = "photoId")
+    private long id;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "path")
-    private String path;
-
-    private User user;
-
     @ManyToOne
-    @JoinColumn(name="photo_fk",insertable=false,updatable = false)
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    @JoinColumn(name="user_id")
+    private User user1;
 
     public Photo(){
-        this.user = user;
 
     }
 
-    public Photo(User user){
-        this.user = user;
-
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", user1=" + user1 +
+                '}';
     }
 
-
-    public Photo(String description, String path,User user) {
+    public Photo(String description, User user1) {
         this.description = description;
-        this.path = path;
+        this.user1 = user1;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
@@ -56,22 +47,11 @@ public class Photo implements Serializable {
         this.description = description;
     }
 
-    public String getPath() {
-        return path;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    @Override
-    public String toString() {
-        return "Photo{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", path='" + path + '\'' +
-                ", user=" + user +
-                '}';
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 }
-
