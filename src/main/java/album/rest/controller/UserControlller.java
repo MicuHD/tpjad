@@ -108,8 +108,7 @@ public class UserControlller {
     public int logged(HttpSession session) {
         System.out.println("get logged");
         System.out.println(session.getAttribute("userId") + " " + session.getAttribute("user") +  session.getAttribute("sessionId"));
-        // TODO: Add database checking if user has been blocked while logged in
-        if (session.getAttribute("userId") != null) {
+        if (session.getAttribute("sessionId") != null) {
             return userDAO.findOne(Long.parseLong((String)session.getAttribute("userId"))).getId().intValue();
         }
         return -1;
@@ -124,6 +123,7 @@ public class UserControlller {
             session.setAttribute("user", null);
             session.setAttribute("sessionId", null);
             Long id = Long.parseLong((String)session.getAttribute("userId"));
+            session.setAttribute("userId",null);
             User user = userDAO.findOne(id);
             user.setSessionID(null);
             userDAO.save(user);

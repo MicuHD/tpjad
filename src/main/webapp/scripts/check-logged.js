@@ -11,7 +11,7 @@ $(function() {
     var space = "&nbsp;&nbsp;&nbsp;&nbsp;";
     promiseLog.then(function() {
         $.get("/api/user/get/" + userID).done(function(res) {
-            profile.html($("<span>").html(space + "Sunte&tcedil;i conectat ca " + res.name + "!" + space));
+            profile.html($("<span>").html(space + "Sunte&tcedil;i conectat ca " + res.username + "!" + space));
 
             var btnLogout = $("<a href='#'><span class='glyphicon glyphicon-log-out'></span></a>");
             profile.append(btnLogout);
