@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="images/favicon.png">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>&Icirc;nregistrare</title>
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="scripts/alert.js"></script>
+    <script src="scripts/util.js"></script>
+    <script src="scripts/register.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-
-<h1>Register</h1>
-
-<p>email</p>
-<input type = "text" id = "tfemail" value = "" ><br />
-<p>password</p>
-<input type = "text" id = "tfpassword" value = ""/><br />
-<p>confirm password</p>
-<input type = "text" id = "tfcpassword" value = ""/><br />
-<hr>
-<input type = "button" id = "registerServer" value = "Register" /><br />
-
+<div class="container">
+    <h1>&Icirc;nregistrare</h1>
+    <p>C&acirc;mpurile marcate cu * sunt obligatorii.</p>
+    <hr>
+    <div id="message-area"></div>
+    <label for="fullname">Username: *</label>
+    <input class="form-control" type="text" id="fullname">
+    <label for="password">Parol&abreve;: * <br>Parola trebuie s&abreve; con&tcedil;in&abreve; minim 6 caractere.</label>
+    <input class="form-control" type="password" id="password">
+    <p class="errormessage" id="errors-password"></p>
+    <label for="password">Confirmare Parol&abreve;: *</label>
+    <input class="form-control" type="password" id="password-confirm">
+    <p class="errormessage" id="errors-password-confirm"></p>
+    <hr>
+    <button class="btn btn-primary btn-fill" id="btn-submit">&Icirc;nregistrare</button>
+    <button class="btn btn-primary btn-fill" onClick="location.href='index.html'">&Icirc;napoi</button>
+    <button class="btn btn-primary btn-fill" onClick="location.href='index.html'">Autentificare</button>
+</div>
 </body>
 </html>
