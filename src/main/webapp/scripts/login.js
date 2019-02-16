@@ -24,7 +24,7 @@ function doLogin(){
         var passwd = $("#password").val();
         var user = {
             username: username,
-            passwd: passwd
+            password: passwd
         };
         $.ajax({
             type:"POST",
@@ -33,7 +33,7 @@ function doLogin(){
             contentType:"application/json; charset=utf-8",
             dataType: "json",
             success: function(){
-                window.location.href = "/index.html";
+                window.location.href = "/album.html";
             },
             error: function(){
                 showMessage("Eroare","Cont blocat sau credențiale greșite", false);

@@ -31,6 +31,14 @@ public class User {
     @OneToMany(mappedBy = "user1",cascade=CascadeType.ALL)
     private List<Photo> photos;
 
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
+    }
+
     @Column(name = "sessionId",nullable = true)
     String sessionID;
 
@@ -45,10 +53,16 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, String passportNumber) {
+    public User(String username, String password, String sessionID) {
+        this.username = username;
+        this.password = password;
+        this.sessionID = sessionID;
+    }
+
+    public User(String name, String password) {
         super();
         this.username = name;
-        this.password = passportNumber;
+        this.password = password;
     }
     public Long getId() {
         return id;
