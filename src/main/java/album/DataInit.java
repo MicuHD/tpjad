@@ -31,8 +31,8 @@ public class DataInit implements ApplicationRunner {
         if (count == 0) {
             User user = new User();
 
-            user.setName("Johnny");
-            user.setPassportNumber("test");
+            user.setUsername("Johnny");
+            user.setPassword("test");
 
             Photo im1 = new Photo("test",user);
             Photo im2 = new Photo("tes2",user);

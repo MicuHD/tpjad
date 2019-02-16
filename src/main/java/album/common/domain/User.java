@@ -10,30 +10,45 @@ public class User {
     @GeneratedValue
     @Column(name="user_id",nullable=false)
     private Long id;
-    @Column(name="name",nullable = false)
-    private String name;
-    @Column(name="passport",nullable = true)
-    private String passportNumber;
+    @Column(name="username",nullable = false,unique = true)
+    private String username;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", photos=" + photos +
+                ", sessionID='" + sessionID + '\'' +
+                '}';
+    }
+
+    @Column(name="password",nullable = false)
+    private String password;
 
     @Column
     @OneToMany(mappedBy = "user1",cascade=CascadeType.ALL)
     private List<Photo> photos;
 
+    @Column(name = "sessionId",nullable = true)
+    String sessionID;
+
     public User() {
         super();
     }
 
-    public User(Long id, String name, String passportNumber) {
+    public User(Long id, String name, String password) {
         super();
         this.id = id;
-        this.name = name;
-        this.passportNumber = passportNumber;
+        this.username = name;
+        this.password = password;
     }
 
     public User(String name, String passportNumber) {
         super();
-        this.name = name;
-        this.passportNumber = passportNumber;
+        this.username = name;
+        this.password = passportNumber;
     }
     public Long getId() {
         return id;
@@ -41,17 +56,17 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
-    public String getPassportNumber() {
-        return passportNumber;
+    public String getPassword() {
+        return password;
     }
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Photo> getPhotos() {
@@ -62,15 +77,7 @@ public class User {
         this.photos = photos;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", passportNumber='" + passportNumber + '\'' +
-                ", photos=" + photos +
-                '}';
-    }
+
 
     public void addPhoto(Photo photo){
 //        System.out.print(photo.toString());
