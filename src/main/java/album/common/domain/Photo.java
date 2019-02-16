@@ -17,6 +17,17 @@ public class Photo {
     @JoinColumn(name="user_id")
     private User user1;
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Column(name = "path")
+    private String path;
+
     public Photo(){
 
     }
@@ -27,6 +38,7 @@ public class Photo {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", user1=" + user1 +
+                ", path='" + path + '\'' +
                 '}';
     }
 
