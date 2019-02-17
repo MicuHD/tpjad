@@ -1,5 +1,7 @@
 package album.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,7 +30,8 @@ public class User {
     private String password;
 
     @Column
-    @OneToMany(mappedBy = "user1",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user1",cascade=CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private List<Photo> photos;
 
     public String getSessionID() {

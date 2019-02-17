@@ -137,7 +137,7 @@ public class UserControlller {
     }
 
     @PostMapping("/saveImage")
-    public ResponseEntity saveImage(@RequestParam("file")MultipartFile file, HttpSession session){
+    public ResponseEntity saveImage(@RequestParam("file")MultipartFile file, HttpSession session,@RequestParam String description){
         System.out.println(session.getAttribute("userId") + " " + session.getAttribute("user") +  session.getAttribute("sessionId"));
         if(session.getAttribute("userId") == null){
             return ResponseEntity.badRequest().build();
@@ -147,7 +147,7 @@ public class UserControlller {
             String extension = tokens[tokens.length-1];
 
             User user = userDAO.findOne(Long.parseLong((String)session.getAttribute("userId")));
-            Photo photo = new Photo("descriere interesanta",user);
+            Photo photo = new Photo(description,user);
 
             user.addPhoto(photo);
             List<Photo> photos = user.getPhotos();
@@ -155,15 +155,16 @@ public class UserControlller {
 
             Photo photo1 = photos.get(photos.size()-1);
             String name = user.getUsername() + String.valueOf(photo1.getId());
-            String path = name + "." + extension;
-
+            String path = "/savedImages/" + name + "." + extension;
+            photo1.setPath(path);
             userDAO.save(user);
 
-            System.out.println(path);
-            File convFile = new File("images/" +path);
+            System.out.println("Path: " + path);
+            File convFile = new File("src/main/webapp/" +path);
             System.out.println(convFile.getAbsolutePath());
             FileOutputStream fos = null;
             try {
+                convFile.getParentFile().mkdirs();
                 convFile.createNewFile();
                 fos = new FileOutputStream(convFile);
                 fos.write(file.getBytes());
@@ -178,6 +179,19 @@ public class UserControlller {
             return ResponseEntity.ok("{}");
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/getall")
+    public List<Photo> getAll(HttpSession session) {
+        long id = Long.parseLong((String)session.getAttribute("userId"));
+        System.out.println("User id" + id);
+        User user = userDAO.findOne(id);
+        List<Photo> photos = user.getPhotos();
+        for(Photo photo : photos){
+            photo.setUser1(null);
+            System.out.println(photo);
+        }
+        return photos;
     }
 
 }

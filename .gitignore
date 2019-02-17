@@ -6,3 +6,5 @@ out/*
 *.iml
 gradlew
 gradlew.bat
+src/main/webapp/script/*
+src/main/webapp/savedImages/*

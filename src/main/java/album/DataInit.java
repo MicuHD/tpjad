@@ -48,9 +48,17 @@ public class DataInit implements ApplicationRunner {
 
             userDAO.save(user);
 
+
 //            photoDAO.save(im1);
 //            photoDAO.save(im2);
 
+        }
+        else{
+            Iterable<User> users = userDAO.findAll();
+            for (User user1 : users) {
+                user1.setSessionID(null);
+            }
+            userDAO.save(users);
         }
     }
 }
