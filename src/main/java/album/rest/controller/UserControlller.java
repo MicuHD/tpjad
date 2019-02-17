@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
@@ -152,7 +155,7 @@ public class UserControlller {
     public ResponseEntity saveImage(@RequestParam("file")MultipartFile file, HttpSession session,@RequestParam String description){
         System.out.println(session.getAttribute("userId") + " " + session.getAttribute("user") +  session.getAttribute("sessionId"));
         if(session.getAttribute("userId") == null){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Nu sunteti logat");
         }
         if(file != null){
             String[] tokens = file.getOriginalFilename().split("\\.");
@@ -196,7 +199,6 @@ public class UserControlller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ;
 
             return ResponseEntity.ok("{}");
         }
@@ -216,4 +218,36 @@ public class UserControlller {
         return photos;
     }
 
+    @PutMapping("/images/update")
+    public ResponseEntity updateImage(@RequestBody Photo photo,HttpSession session){
+        Photo ph = photoDAO.findOne(photo.getId());
+        if(ph.getUser1().getId().equals(Long.parseLong((String)session.getAttribute("userId")))){
+            ph.setDescription(photo.getDescription());
+            photoDAO.save(ph);
+            return ResponseEntity.ok("{}");
+        }
+        else{
+            return ResponseEntity.badRequest().body("Nu aveti permisiune pentru a modifica aceasta imagine!");
+        }
+
+    }
+
+    @DeleteMapping("images/delete/{id}")
+    public ResponseEntity deleteImage(@PathVariable Long id,HttpSession session){
+        Photo photo = photoDAO.findOne(id);
+        if(photo.getUser1().getId().equals(Long.parseLong((String)session.getAttribute("userId")))){
+            User user = userDAO.findOne(photo.getUser1().getId());
+            user.getPhotos().remove(photo);
+            userDAO.save(user);
+            try{
+                Files.deleteIfExists(Paths.get("src/main/webapp/" + photo.getPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ResponseEntity.ok("{}");
+        }
+        else{
+            return ResponseEntity.badRequest().body("Nu aveti permisiune pentru a sterge aceasta imagine!");
+        }
+    }
 }
