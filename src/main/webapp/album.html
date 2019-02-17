@@ -4,24 +4,47 @@
     <link rel="icon" href="images/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Need for Parking</title>
+    <title>Photo Album</title>
+
 
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
+
+    <script src="scripts/glisse.js"></script>
+    <script src="scripts/add-image.js"></script>
+
+
     <script src="scripts/alert.js"></script>
     <script src="scripts/check-logged.js"></script>
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/album.css">
 
 </head>
-<body>
+<body  >
 <div id="profile"></div>
-<div id="main-container" class="container">
+<div id="main-container"  >
     <h1>Index</h1>
     <div id="message-area"></div>
-    <button id="btn-spot-register" class="btn btn-primary btn-fill" onClick="location.href='insert-parking-details.html'">Adaugare Poza</button>
-    <button id="btn-spot-book" class="btn btn-primary btn-fill" onClick="location.href='reserve.html'">Vizualizare Poze</button>
+   </div>
+
+
+
+
+<div  id="gallery">
+    <form id="localStorageTest" method="post" enctype="multipart/form-data">
+            <div class="upload-image-preview"></div>
+            <input type="file" name="file" value="Upload Image" />
+
+
+
+     </form>
+
+    <div id="result"></div>
+    <button id="save-image" class="save-image">salveaza poza</button>
+
+
+
 </div>
 </body>
 </html>

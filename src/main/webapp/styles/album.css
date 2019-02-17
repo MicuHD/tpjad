@@ -1,0 +1,14 @@
+html, body { height: 100%; }
+#gallery { height: 100%; width: 100%; position: relative; }
+
+#gallery div {
+    /* CSS Hack will make it width 100% and height 100% */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    /* Maintain aspect ratio */
+    max-height: 100%;
+    max-width: 100%;
+}
