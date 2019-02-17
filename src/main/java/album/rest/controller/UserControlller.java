@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -136,6 +138,16 @@ public class UserControlller {
         return ResponseEntity.badRequest().build();
     }
 
+    private static String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
     @PostMapping("/saveImage")
     public ResponseEntity saveImage(@RequestParam("file")MultipartFile file, HttpSession session,@RequestParam String description){
         System.out.println(session.getAttribute("userId") + " " + session.getAttribute("user") +  session.getAttribute("sessionId"));
@@ -155,7 +167,17 @@ public class UserControlller {
 
             Photo photo1 = photos.get(photos.size()-1);
             String name = user.getUsername() + String.valueOf(photo1.getId());
-            String path = "/savedImages/" + name + "." + extension;
+            String sha2name = "";
+            try {
+                MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+                byte[] hash = sha256.digest(name.getBytes());
+                sha2name = bytesToHex(hash);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+
+            String path = "/savedImages/" + sha2name + "." + extension;
             photo1.setPath(path);
             userDAO.save(user);
 
