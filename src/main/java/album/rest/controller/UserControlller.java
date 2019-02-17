@@ -216,4 +216,11 @@ public class UserControlller {
         return photos;
     }
 
+    @PutMapping("/images/update")
+    public ResponseEntity updateImage(@RequestBody Photo photo){
+        Photo ph = photoDAO.findOne(photo.getId());
+        ph.setDescription(photo.getDescription());
+        photoDAO.save(ph);
+        return ResponseEntity.ok("{}");
+    }
 }
