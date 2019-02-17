@@ -148,7 +148,7 @@ public class UserControlller {
         return hexString.toString();
     }
 
-    @PostMapping("/saveImage")
+    @PostMapping("/image/save")
     public ResponseEntity saveImage(@RequestParam("file")MultipartFile file, HttpSession session,@RequestParam String description){
         System.out.println(session.getAttribute("userId") + " " + session.getAttribute("user") +  session.getAttribute("sessionId"));
         if(session.getAttribute("userId") == null){
@@ -203,7 +203,7 @@ public class UserControlller {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/images/getAll")
     public List<Photo> getAll(HttpSession session) {
         long id = Long.parseLong((String)session.getAttribute("userId"));
         System.out.println("User id" + id);
