@@ -31,7 +31,7 @@ $(document).ready(function() {
         var form = $('#localStorageTest')[0];
 
         var data = new FormData(form);
-        data.append("description", "This is some extra data, testing");
+        data.append("description", $("#descriere").val());
 
         // disabled the submit button
         $("#save-image").prop("disabled", true);

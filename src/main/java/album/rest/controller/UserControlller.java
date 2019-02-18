@@ -200,7 +200,7 @@ public class UserControlller {
                 e.printStackTrace();
             }
 
-            return ResponseEntity.ok("{}");
+            return ResponseEntity.ok("{Imaginea a fost uploadata cu succes}");
         }
         return ResponseEntity.badRequest().build();
     }
