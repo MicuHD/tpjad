@@ -657,3 +657,28 @@ form {
     overflow: auto ;
     color:black;
 }
+.desc-img{
+    color: black;
+
+}
+
+
+.popup-menu {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    color: #000;
+    z-index: 4;
+}
+
+.popup-menu.menu-fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.dynamicdelete{
+    color: black;
+}
+.dynamicupdate{
+    color: black;
+}

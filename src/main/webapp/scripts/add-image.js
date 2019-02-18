@@ -99,7 +99,14 @@ $(document).ready(function() {
                 for (var i = 0; i < data.length; i++) {
                     // outputfromserver[i] can be used to get each value
 
-                    items.push('<img src="' + data[i].path + '" title=""' + data[i].description  + '"/>');
+                    items.push('<img src="' + data[i].path + '" title="' + data[i].description+'"/>');
+                    items.push('<div class="desc-img">' +  data[i].description+'</>');
+                    items.push('<button  class="dynamicdelete" id="' + data[i].id +'"  > delete </button>');
+                    items.push('<button class="dynamicupdate"> update </button>');
+
+
+
+
 
 
                 }
@@ -122,4 +129,40 @@ $(document).ready(function() {
         });
 
     });
+
+
 });
+
+
+$(document).on('click','.dynamicdelete',function(e){
+
+
+    $("#album-log").text(e.target.id);
+    data  = e.target.id;
+
+    $.ajax({
+        type: "DELETE",
+        url: "/api/user/images/delete/"+data,
+        success: function (data) {
+
+            $("#result").text(data);
+            console.log("SUCCESS : ", data);
+            $('.dynamicdelete').prop("disabled", false);
+            $('#view-photos').trigger('click');
+
+        },
+        error: function (e) {
+
+            $("#result").text(e.responseText);
+            console.log("ERROR : ", e);
+            $(".dynamicdelete").prop("disabled", false);
+
+        }
+
+
+});
+
+})
+
+
+
