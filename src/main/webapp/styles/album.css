@@ -1,4 +1,19 @@
-html, body { height: 100%; }
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.container {
+    /*padding-left: 5%;
+    padding-right: 5%;*/
+    padding-top: 65px;
+    padding-bottom: 50px;
+    /*background: url("../images/background_blurred.png") fixed;*/
+    background-size: cover;
+    box-shadow: 0px 0px 20px black;
+
+// margin: auto;
+}
+
 #gallery { height: 100%; width: 100%; position: relative; }
 
 #gallery div {
@@ -11,4 +26,31 @@ html, body { height: 100%; }
     /* Maintain aspect ratio */
     max-height: 100%;
     max-width: 100%;
+}
+
+#profile {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 0 7px black;
+    background: url("../images/background_blurred.png") fixed;
+    background-size: cover;
+    padding: 7px;
+    z-index: 2;
+    text-align: center;
+}
+
+#profile > span {
+    margin: 0;
+    font-size: 15px;
+    font-weight: normal;
+    color: white;
+}
+
+#profile .btn {
+    /*margin-top: 5px;*/
+    background-color: rgba(255,255,255,0.2);
+    display: inline;
 }

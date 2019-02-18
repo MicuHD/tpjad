@@ -22,8 +22,9 @@ $(document).ready(function() {
     });
 
 
-
 });
+
+
 
 $(document).ready(function() {
     $("#save-image").click(function(event){
@@ -66,12 +67,59 @@ $(document).ready(function() {
 
 
 
-
 $(function () {
     $('.pics').glisse({
         changeSpeed: 550,
         speed: 500,
         effect:'bounce',
         fullscreen: true
+    });
+});
+
+$(document).ready(function() {
+    $("#view-photos").click(function(event){
+
+
+
+
+
+        // disabled the submit button
+        $("#view-photos").prop("disabled", true);
+
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/api/user/images/getAll",
+            contentType: 'application/json; charset=utf-8',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                var items = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    // outputfromserver[i] can be used to get each value
+
+                    items.push('<img src="' + data[i].path + '" title=""' + data[i].description  + '"/>');
+
+
+                }
+
+
+               $('#album-view').html(items);
+
+                $("#album-log").text(items);
+                console.log("SUCCESS : ", data);
+                $("#view-photos").prop("disabled", false);
+
+            },
+            error: function (e) {
+
+                $(".album-log").text(e.responseText);
+                console.log("ERROR : ", e);
+                $("#view-photos").prop("disabled", false);
+
+            }
+        });
+
     });
 });

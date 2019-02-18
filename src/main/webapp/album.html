@@ -18,28 +18,44 @@
 
     <script src="scripts/alert.js"></script>
     <script src="scripts/check-logged.js"></script>
-    <link rel="stylesheet" href="style/album.css">
+    <link rel="stylesheet" href="styles/main.css">
 
 </head>
 <body  >
+
+
+
+
 <div id="profile"></div>
-<div id="main-container"  >
-    <h1>Index</h1>
+
+<div  id="main-container" class="container">
     <div id="message-area"></div>
-   </div>
 
 
-
-
-<div  id="gallery">
-    <form id="localStorageTest" method="post" enctype="multipart/form-data">
-            <div class="upload-image-preview"></div>
+        <h1>Album</h1>
+        <hr>
+        <form  id="localStorageTest"  style="" method="post" enctype="multipart/form-data">
+            <div  class="upload-image-preview thumbnail"></div>
             <input type="file" name="file" value="Upload Image" />
-     </form>
-    <label>Descriere poza</label>
-    <input class="form-control" id="descriere">
-    <div id="result"></div>
-    <button id="save-image" class="save-image">salveaza poza</button>
+        </form>
+
+
+
+        <label>Descriere poza</label>
+        <input class="form-control" id="descriere">
+        <button id="save-image" class="btn btn-primary btn-fill">salveaza poza</button>
+        <div id="result" class="result"></div>
+
+    <hr>
+    <div id="content">
+        <button id="view-photos" class="btn btn-primary btn-fill">vizualizare album</button>
+
+        <div id="album-log" class="result"></div>
+        <div id="album-view" ></div>
+
+    </div>
+
+
 
 
 
