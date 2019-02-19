@@ -114,14 +114,14 @@ $(document).ready(function() {
 
                $('#album-view').html(items);
 
-                $("#album-log").text(items);
+                //$("#album-log").text(items);
                 console.log("SUCCESS : ", data);
                 $("#view-photos").prop("disabled", false);
 
             },
             error: function (e) {
 
-                $(".album-log").text(e.responseText);
+                //$(".album-log").text(e.responseText);
                 console.log("ERROR : ", e);
                 $("#view-photos").prop("disabled", false);
 
@@ -137,7 +137,7 @@ $(document).ready(function() {
 $(document).on('click','.dynamicdelete',function(e){
 
 
-    $("#album-log").text(e.target.name);
+    //$("#album-log").text(e.target.name);
     data  = e.target.name;
 
     $.ajax({
@@ -145,7 +145,7 @@ $(document).on('click','.dynamicdelete',function(e){
         url: "/api/user/images/delete/"+data,
         success: function (data) {
 
-            $("#result").text(data);
+            //$("#result").text(data);
             console.log("SUCCESS : ", data);
             $('.dynamicdelete').prop("disabled", false);
             $('#view-photos').trigger('click');
@@ -153,7 +153,7 @@ $(document).on('click','.dynamicdelete',function(e){
         },
         error: function (e) {
 
-            $("#result").text(e.responseText);
+            //$("#result").text(e.responseText);
             console.log("ERROR : ", e);
             $(".dynamicdelete").prop("disabled", false);
 
@@ -170,7 +170,7 @@ $(document).on('click','.dynamicupdate',function(e){
 
     id  = e.target.name;
     description = $(".dynamicinput[name="+id+"]").val();
-    $("#album-log").text(description);
+    //$("#album-log").text(description);
 
     var data={
         'id':id,
@@ -182,18 +182,19 @@ $(document).on('click','.dynamicupdate',function(e){
     $.ajax({
         type: "PUT",
         url: "/api/user/images/update",
-        data:data,
+        data:JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
         success: function (data) {
 
-            $("#result").text(data);
+            //$("#result").text(data);
             console.log("SUCCESS : ", data);
             $('.dynamicupdate').prop("disabled", false);
 
         },
         error: function (e) {
 
-            $("#result").text(e.responseText);
+            //$("#result").text(e.responseText);
             console.log("ERROR : ", e);
             $(".dynamicupdate").prop("disabled", false);
 
