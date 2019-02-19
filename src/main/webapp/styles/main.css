@@ -682,3 +682,9 @@ form {
 .dynamicupdate{
     color: black;
 }
+.dynamicinput{
+    color: black;
+}
+#album-log{
+    height: 50px;
+}

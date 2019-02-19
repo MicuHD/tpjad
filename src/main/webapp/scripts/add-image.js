@@ -100,9 +100,9 @@ $(document).ready(function() {
                     // outputfromserver[i] can be used to get each value
 
                     items.push('<img src="' + data[i].path + '" title="' + data[i].description+'"/>');
-                    items.push('<div class="desc-img">' +  data[i].description+'</>');
-                    items.push('<button  class="dynamicdelete" id="' + data[i].id +'"  > delete </button>');
-                    items.push('<button class="dynamicupdate"> update </button>');
+                    items.push('<input class="dynamicinput" value="' +  data[i].description+'" name="' + data[i].id +'"></>');
+                    items.push('<button  class="dynamicdelete" name="' + data[i].id +'"  > delete </button>');
+                    items.push('<button  class="dynamicupdate" name="' + data[i].id +'"  > update </button>');
 
 
 
@@ -137,8 +137,8 @@ $(document).ready(function() {
 $(document).on('click','.dynamicdelete',function(e){
 
 
-    $("#album-log").text(e.target.id);
-    data  = e.target.id;
+    $("#album-log").text(e.target.name);
+    data  = e.target.name;
 
     $.ajax({
         type: "DELETE",
@@ -161,6 +161,46 @@ $(document).on('click','.dynamicdelete',function(e){
 
 
 });
+
+})
+
+$(document).on('click','.dynamicupdate',function(e){
+
+
+
+    id  = e.target.name;
+    description = $(".dynamicinput[name="+id+"]").val();
+    $("#album-log").text(description);
+
+    var data={
+        'id':id,
+        'description':description
+    }
+
+
+
+    $.ajax({
+        type: "PUT",
+        url: "/api/user/images/update",
+        data:data,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+
+            $("#result").text(data);
+            console.log("SUCCESS : ", data);
+            $('.dynamicupdate').prop("disabled", false);
+
+        },
+        error: function (e) {
+
+            $("#result").text(e.responseText);
+            console.log("ERROR : ", e);
+            $(".dynamicupdate").prop("disabled", false);
+
+        }
+
+
+    });
 
 })
 
